@@ -127,3 +127,10 @@ document.querySelectorAll('.ver-mas').forEach((boton) => {
     boton.remove();
   });
 });
+
+
+document.getElementById("contact-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  alert("Mensaje enviado correctamente. ¡Gracias!");
+  this.reset(); // Limpia el formulario
+});
