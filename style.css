@@ -70,6 +70,30 @@ html, body {
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
+/* Navbar fijo para todas las páginas excepto index */
+body:not(.index-page) #navbar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Asegurar que el navbar se vea en páginas que no son index */
+body:not(.index-page) #navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #fdd835;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  opacity: 1;
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .navbar-logo {
   width: 150px;
   height: 40px;
@@ -113,6 +137,101 @@ html, body {
   background: linear-gradient(to bottom, #87ceeb 0%, transparent 100%);
   z-index: 2;
   pointer-events: none;
+}
+
+/* Contenido de la serie */
+.contenido-serie {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.contenido-serie h2 {
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+}
+
+.descripcion-serie {
+  font-size: 1.2rem;
+  color: #f0f0f0;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.estadisticas {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 20px 30px;
+  min-width: 120px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.stat h3 {
+  font-size: 2.5rem;
+  color: #fdd835;
+  margin: 0 0 10px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+}
+
+.stat p {
+  font-size: 1rem;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+}
+
+/* Responsive para el contenido de la serie */
+@media (max-width: 768px) {
+  .contenido-serie {
+    padding: 40px 20px;
+  }
+  
+  .contenido-serie h2 {
+    font-size: 2.2rem;
+  }
+  
+  .descripcion-serie {
+    font-size: 1.1rem;
+  }
+  
+  .estadisticas {
+    gap: 30px;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stat {
+    min-width: 100px;
+    padding: 15px 25px;
+  }
+  
+  .stat h3 {
+    font-size: 2rem;
+  }
 }
 
 .carrusel {
@@ -286,6 +405,15 @@ html, body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+/* Estilos del acordeón para páginas con fondo Springfield */
+body:not(.index-page) .temporada {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
 .acordeon-titulo {
   width: 100%;
   padding: 20px;
@@ -297,10 +425,25 @@ html, body {
   cursor: pointer;
   text-align: left;
   transition: background 0.3s ease;
+  position: relative;
 }
 
 .acordeon-titulo:hover {
   background-color: #ffee58;
+}
+
+.acordeon-titulo::after {
+  content: '+';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.acordeon-titulo.activo::after {
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .acordeon-contenido {
@@ -310,6 +453,11 @@ html, body {
   padding: 0 20px;
 }
 
+.acordeon-contenido.activo {
+  max-height: 1000px;
+  padding: 20px;
+}
+
 .acordeon-contenido ul {
   list-style: none;
   padding-left: 0;
@@ -317,9 +465,27 @@ html, body {
 }
 
 .acordeon-contenido li {
-  padding: 6px 0;
+  padding: 8px 0;
   font-size: 1.1rem;
   color: #444;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.acordeon-contenido li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding-left: 10px;
+}
+
+/* Estilos para páginas con fondo Springfield */
+body:not(.index-page) .acordeon-contenido li {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body:not(.index-page) .acordeon-contenido li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .ver-mas {
@@ -427,52 +593,308 @@ footer {
 }
 
 .contacto-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 100px auto 50px;
-  padding: 20px;
+  padding: 40px;
   background-color: #fff9c4;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
 }
 
-.contacto-container h1,
+.contacto-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #fdd835, #ffeb3b, #fdd835);
+}
+
+/* Efecto cristal para contenedores en páginas con fondo Springfield */
+body:not(.index-page) .contacto-container,
+body:not(.index-page) .galeria-container,
+body:not(.index-page) .temporadas-dist,
+body:not(.index-page) .temporada-detalle {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.contacto-container h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .contacto-container h2 {
   color: #333;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  position: relative;
+}
+
+.contacto-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #fdd835, #ffeb3b);
+  border-radius: 2px;
+}
+
+/* Estilos para páginas con fondo Springfield */
+body:not(.index-page) .contacto-container h1 {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body:not(.index-page) .contacto-container h2 {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Colores de texto para páginas con fondo Springfield */
+body:not(.index-page) .contacto-container h1,
+body:not(.index-page) .contacto-container h2,
+body:not(.index-page) .galeria-container h1,
+body:not(.index-page) .temporadas-dist h1,
+body:not(.index-page) .temporada-detalle h1 {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body:not(.index-page) .temporadas-dist h1,
+body:not(.index-page) .temporada-detalle h1 {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.formulario-contacto {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
 }
 
 .formulario-contacto form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+}
+
+.formulario-contacto label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+  font-size: 1.1rem;
 }
 
 .formulario-contacto input,
 .formulario-contacto textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
   font-size: 1rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.formulario-contacto input:focus,
+.formulario-contacto textarea:focus {
+  outline: none;
+  border-color: #fdd835;
+  box-shadow: 0 0 0 3px rgba(253, 216, 53, 0.2);
+  transform: translateY(-2px);
+}
+
+.formulario-contacto textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Estilos del formulario en páginas con fondo Springfield */
+body:not(.index-page) .formulario-contacto {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+body:not(.index-page) .formulario-contacto input,
+body:not(.index-page) .formulario-contacto textarea {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  color: #333;
+}
+
+body:not(.index-page) .formulario-contacto input:focus,
+body:not(.index-page) .formulario-contacto textarea:focus {
+  border-color: #fdd835;
+  box-shadow: 0 0 0 3px rgba(253, 216, 53, 0.3);
+}
+
+body:not(.index-page) .formulario-contacto label {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
 
 .formulario-contacto button {
-  padding: 10px 20px;
-  background-color: #fdd835;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #fdd835, #ffeb3b);
   border: none;
-  border-radius: 6px;
+  border-radius: 12px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  font-size: 1.1rem;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(253, 216, 53, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.formulario-contacto button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
 }
 
 .formulario-contacto button:hover {
-  background-color: #ffeb3b;
+  background: linear-gradient(135deg, #ffeb3b, #fdd835);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(253, 216, 53, 0.4);
+}
+
+.formulario-contacto button:hover::before {
+  left: 100%;
+}
+
+.formulario-contacto button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(253, 216, 53, 0.3);
+}
+
+.formulario-contacto button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.mapa {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.mapa h2 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 .mapa iframe {
   width: 100%;
-  border-radius: 8px;
+  height: 350px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Estilos para páginas con fondo Springfield */
+body:not(.index-page) .mapa {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+body:not(.index-page) .mapa h2 {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para mensajes de error y éxito */
+.mensaje-error {
+  background: linear-gradient(135deg, #ffebee, #ffcdd2);
+  color: #c62828;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border-left: 4px solid #c62828;
+  box-shadow: 0 2px 10px rgba(198, 40, 40, 0.2);
+  animation: slideIn 0.3s ease;
+}
+
+.mensaje-exito {
+  background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+  color: #2e7d32;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border-left: 4px solid #4caf50;
+  box-shadow: 0 2px 10px rgba(76, 175, 80, 0.2);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive para contacto */
+@media (max-width: 768px) {
+  .contacto-container {
+    margin: 80px 20px 50px;
+    padding: 25px;
+  }
+  
+  .formulario-contacto,
+  .mapa {
+    padding: 20px;
+  }
+  
+  .formulario-contacto input,
+  .formulario-contacto textarea {
+    padding: 12px;
+  }
+  
+  .formulario-contacto button {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
 }
 
 .galeria-container {
@@ -482,20 +904,300 @@ footer {
   text-align: center;
 }
 
+/* Ajustar margen superior para páginas con navbar fijo */
+body:not(.index-page) .galeria-container,
+body:not(.index-page) .contacto-container,
+body:not(.index-page) .temporadas-dist,
+body:not(.index-page) .temporada-detalle {
+  margin-top: 100px;
+}
+
+/* Fondo de Springfield para páginas que no son index */
+body:not(.index-page) {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Pseudo-elemento para el fondo con blur */
+body:not(.index-page)::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/springfield.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  filter: blur(6px) brightness(0.9);
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Overlay para mejorar legibilidad */
+body:not(.index-page)::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: -1;
+  pointer-events: none;
+}
+
 .galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive para la galería */
+@media (max-width: 768px) {
+  .galeria-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .galeria-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+.imagen-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+}
+
+.imagen-card img:hover {
+  transform: scale(1.05);
+}
+
+/* Estilos específicos para imágenes de personajes */
+.imagen-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.imagen-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-5px);
+}
+
+/* Estilos para páginas con fondo Springfield */
+body:not(.index-page) .imagen-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body:not(.index-page) .imagen-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos adicionales para la galería - limpiados */
+
+.imagen-card::after {
+  content: '🔍';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.imagen-card:hover::after {
+  opacity: 1;
+}
+
+/* Información de las imágenes */
+.imagen-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  padding: 20px 15px 15px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.imagen-card:hover .imagen-info {
+  transform: translateY(0);
+}
+
+.imagen-info h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.imagen-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para páginas con fondo Springfield */
+body:not(.index-page) .imagen-info h3 {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+body:not(.index-page) .imagen-info p {
+  color: #f0f0f0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* Estilos para páginas de temporadas */
+.temporadas-dist {
+  max-width: 900px;
+  margin: 100px auto 50px;
+  padding: 20px;
+  background-color: #fff9c4;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Efecto cristal para contenedor de temporadas con fondo Springfield */
+body:not(.index-page) .temporadas-dist {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.temporadas-dist h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.lista-temporadas {
+  list-style: none;
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
 }
 
-.imagen-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
-  cursor: pointer;
+.lista-temporadas li {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.imagen-card img:hover {
-  transform: scale(1.05);
+.lista-temporadas li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para listas en páginas con fondo Springfield */
+body:not(.index-page) .lista-temporadas li {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+body:not(.index-page) .lista-temporadas a {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.lista-temporadas a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 1.2rem;
+  display: block;
+}
+
+.temporada-detalle {
+  max-width: 800px;
+  margin: 100px auto 50px;
+  padding: 20px;
+  background-color: #fff9c4;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.temporada-detalle h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.episodios-temporada h2 {
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #fdd835;
+  padding-bottom: 10px;
+}
+
+.episodios-temporada ul {
+  list-style: none;
+  padding: 0;
+}
+
+.episodios-temporada li {
+  background: rgba(255, 255, 255, 0.7);
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #fdd835;
+  transition: background-color 0.3s ease;
+}
+
+.episodios-temporada li:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Estilos para episodios en páginas con fondo Springfield */
+body:not(.index-page) .episodios-temporada li {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+body:not(.index-page) .episodios-temporada li:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+body:not(.index-page) .episodios-temporada h2 {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #fdd835;
 }
